@@ -1,5 +1,5 @@
 """
-Pulsar producer.
+Pulsar produce
 
 Two modes:
   1. Simulated traffic (default) — samples from data/sample_prompts.jsonl and
