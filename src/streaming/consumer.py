@@ -1,5 +1,5 @@
 """
-Real-time jailbre
+R
 
 Reads prompts off a Pulsar topic, classifies them with the hot-swappable
 DistilBERT classifier, republishes verdicts to a results topic, and records
