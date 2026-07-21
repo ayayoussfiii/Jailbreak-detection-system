@@ -115,5 +115,4 @@ ds = load_dataset("JailbreakBench/JBB-Behaviors", "judge_comparison")
 this — just uncomment the `datasets` call and point it at your local cache or
 the Hub.
 
-## License
 
