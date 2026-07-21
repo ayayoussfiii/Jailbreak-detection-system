@@ -1,5 +1,4 @@
 """
-
 Reads prompts off a Pulsar topic, classifies them with the hot-swappable
 DistilBERT classifier, republishes verdicts to a results topic, and records
 latency / detection metrics for the dashboard and drift monitor.
