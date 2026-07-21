@@ -1,0 +1,31 @@
+pulsar:
+  service_url: "pulsar://localhost:6650"
+  topic_in: "persistent://public/default/prompts.in"
+  topic_out: "persistent://public/default/results.out"
+  subscription: "jailbreak-detector-sub"
+  consumer_type: "shared"       # allows horizontal scale-out of workers
+  batch_max_messages: 32
+  batch_max_wait_ms: 15
+
+model:
+  base_model: "distilbert-base-uncased"
+  max_length: 256
+  num_labels: 2
+  label_map:
+    0: "benign"
+    1: "jailbreak"
+  registry_dir: "models"
+  active_pointer_file: "models/ACTIVE_VERSION"
+  latency_budget_ms: 50
+
+monitoring:
+  sqlite_path: "monitoring/metrics.db"
+  rolling_window_size: 2000
+  drift_check_interval_s: 60
+  psi_warning_threshold: 0.1
+  psi_critical_threshold: 0.25
+  ks_alpha: 0.01
+
+dashboard:
+  refresh_interval_s: 5
+  title: "Real-Time Jailbreak Detection — Live Ops Dashboard"

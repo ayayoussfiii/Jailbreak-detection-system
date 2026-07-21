@@ -1,0 +1,71 @@
+version: "3.8"
+
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.2.2
+    container_name: jbk-pulsar
+    command: bin/pulsar standalone
+    ports:
+      - "6650:6650"   # binary protocol (client connections)
+      - "8080:8080"   # admin / metrics HTTP
+    volumes:
+      - pulsar-data:/pulsar/data
+    healthcheck:
+      test: ["CMD", "bin/pulsar-admin", "brokers", "healthcheck"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+  consumer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jbk-consumer
+    command: python -m src.streaming.consumer
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    volumes:
+      - ../models:/app/models
+      - ../monitoring:/app/monitoring
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+
+  producer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jbk-producer
+    command: python -m src.streaming.producer --rate 15
+    depends_on:
+      pulsar:
+        condition: service_healthy
+    environment:
+      - PULSAR_SERVICE_URL=pulsar://pulsar:6650
+
+  drift-monitor:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jbk-drift
+    command: python -m src.monitoring.drift --loop
+    depends_on:
+      - consumer
+    volumes:
+      - ../monitoring:/app/monitoring
+
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: jbk-dashboard
+    command: streamlit run src/dashboard/app.py --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    depends_on:
+      - consumer
+    volumes:
+      - ../monitoring:/app/monitoring
+
+volumes:
+  pulsar-data:
