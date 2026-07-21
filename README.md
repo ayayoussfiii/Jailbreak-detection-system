@@ -4,7 +4,7 @@ A production-style pipeline that classifies incoming LLM prompts as **benign** o
 **jailbreak attempt** in real time, using a fine-tuned DistilBERT model streamed
 through Apache Pulsar, with hot-swap model reloading and a live monitoring
 dashboard.
-<img width="600" height="186" alt="image" src="https://github.com/user-attachments/assets/1bae3c71-21a6-4389-ad9e-a59d4016c92e" />
+<img width="600" height="199" alt="image" src="https://github.com/user-attachments/assets/1bae3c71-21a6-4389-ad9e-a59d4016c92e" />
 
 
 ```
