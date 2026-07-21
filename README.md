@@ -117,4 +117,3 @@ the Hub.
 
 ## License
 
-MIT — for internal security tooling / research use.
