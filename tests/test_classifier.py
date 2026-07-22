@@ -4,7 +4,6 @@ cluster — they test the classifier wrapper, hot-swap behavior, metrics
 store, and drift math in isolation.
 
     pytest tests/test_classifier.py -v
-
 Note: the first run will download `distilbert-base-uncased` weights from
 the HuggingFace Hub (requires network access) and briefly fine-tune on the
 tiny synthetic dataset to produce a model checkpoint fixture.
