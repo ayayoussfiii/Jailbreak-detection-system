@@ -3,7 +3,7 @@ pulsar:
   topic_in: "persistent://public/default/prompts.in"
   topic_out: "persistent://public/default/results.out"
   subscription: "jailbreak-detector-sub"
-  consumer_type: "shared"       # allows horizontal scale-out of workers
+  consumer_type: "shared"       # allows horizontal scale-out of worker
   batch_max_messages: 32
   batch_max_wait_ms: 15
 
