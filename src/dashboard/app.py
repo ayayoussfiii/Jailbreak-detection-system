@@ -1,5 +1,5 @@
 """
-Real-time supervision dashboard for the jailbreak 
+Real-time supervision dashboard for the jailbreak detection
 
 Run:
     streamlit run src/dashboard/app.py
